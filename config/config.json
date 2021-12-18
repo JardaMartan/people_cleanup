@@ -1,0 +1,8 @@
+{
+  "email_regex": [
+    "^\\d+@collab-rocks\\.cz"
+  ],
+  "options": {
+    "max_delete": 5
+  }
+}
