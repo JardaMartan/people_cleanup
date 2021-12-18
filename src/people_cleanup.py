@@ -430,12 +430,16 @@ def check_events(check_interval=EVENT_CHECK_INTERVAL):
                     email_regex_list = config.get("email_regex")
                     logger.debug(f"email regex: {email_regex_list}")
                     match_people = []
+                    people_count = 0
                     for person in people_gen:
                         for match_regex in email_regex_list:
+                            people_count += 1
                             if re.match(match_regex, person.emails[0]):
                                 match_people.append(person)
                                 logger.debug(f"email match for {person.emails[0]}")
                                 break
+                    
+                    logger.debug("Checked {} accounts, {} matched".format(people_count, len(match_people)))
                     
                     if len(match_people) > options.get("max_delete", MAX_PEOPLE_ONCE):
                         send_bot_message("K vymazání je {} účtů. Proveďte to ručně.".format(len(match_people)))
