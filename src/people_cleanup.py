@@ -432,8 +432,8 @@ def check_events(check_interval=EVENT_CHECK_INTERVAL):
                     match_people = []
                     people_count = 0
                     for person in people_gen:
+                        people_count += 1
                         for match_regex in email_regex_list:
-                            people_count += 1
                             if re.match(match_regex, person.emails[0]):
                                 match_people.append(person)
                                 logger.debug(f"email match for {person.emails[0]}")
