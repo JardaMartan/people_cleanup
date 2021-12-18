@@ -3,6 +3,7 @@
     "^\\d+@collab-rocks\\.cz"
   ],
   "options": {
-    "max_delete": 5
+    "max_delete": 5,
+    "check_interval": 15
   }
 }
