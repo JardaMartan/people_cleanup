@@ -12,6 +12,7 @@ COPY requirements.txt .
 #ENV https_proxy http://proxy_host:port
 
 # install dependencies
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 COPY .env_docker .env
