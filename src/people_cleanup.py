@@ -461,6 +461,8 @@ def check_events(check_interval=EVENT_CHECK_INTERVAL):
             if diff > statistics["max_time"]:
                 statistics["max_time"] = diff
                 statistics["max_time_at"] = datetime.now()
+
+            check_interval = options.get("check_interval", check_interval)
             if diff < check_interval:
                 time.sleep(check_interval - int(diff))
             else:
