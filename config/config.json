@@ -2,6 +2,9 @@
   "email_regex": [
     "^\\d+@collab-rocks\\.cz"
   ],
+  "ignore_regex": [
+    "^974895202@collab-rocks\\.cz"
+  ],
   "options": {
     "max_delete": 5,
     "check_interval": 15

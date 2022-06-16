@@ -428,16 +428,24 @@ def check_events(check_interval=EVENT_CHECK_INTERVAL):
                     # TODO: get people list, iterate through it
                     people_gen = wxt_client.people.list()
                     email_regex_list = config.get("email_regex")
-                    logger.debug(f"email regex: {email_regex_list}")
+                    ignore_regex_list = config.get("ignore_regex")
+                    logger.debug(f"email regex: {email_regex_list},\nignore regex: {ignore_regex_list}")
                     match_people = []
                     people_count = 0
                     for person in people_gen:
                         people_count += 1
-                        for match_regex in email_regex_list:
-                            if re.match(match_regex, person.emails[0]):
-                                match_people.append(person)
-                                logger.debug(f"email match for {person.emails[0]}")
+                        ignore_matched = False
+                        for ignore_regex in ignore_regex_list:
+                            if re.match(ignore_regex, person.emails[0]):
+                                ignore_matched = True
+                                logger.debug(f"email {person.emails[0]} ignored")
                                 break
+                        if not ignore_matched:
+                            for match_regex in email_regex_list:
+                                if re.match(match_regex, person.emails[0]):
+                                    match_people.append(person)
+                                    logger.debug(f"email match for {person.emails[0]}")
+                                    break
                     
                     logger.debug("Checked {} accounts, {} matched".format(people_count, len(match_people)))
                     
